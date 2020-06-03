@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class AdaptadorCustomMateria(item: ArrayList<DataMat>, var listener: ClickListenerMat) : RecyclerView.Adapter<AdaptadorCustomMateria.ViewHolder>() {
+class AdaptadorCustomMateria(items: ArrayList<DataMat>, var listener: ClickListenerMat) : RecyclerView.Adapter<AdaptadorCustomMateria.ViewHolder>() {
 
     var items: ArrayList<DataMat> ?= null
 

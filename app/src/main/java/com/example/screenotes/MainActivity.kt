@@ -25,19 +25,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        var listarMaterias: ArrayList<DataMat>? = null
+        val listMat = ArrayList<DataMat>()
+        var lista: RecyclerView? = null
+        var layoutManager: RecyclerView.LayoutManager? = null
+
         val res = intent
         if (res != null && res.hasExtra(EXTRA_CONTROL) && res.hasExtra(EXTRA_CONTRASENA)) {
             val no_control = res.getStringExtra(EXTRA_CONTROL)
             val contrasena = res.getStringExtra(EXTRA_CONTRASENA)
-            var listarMaterias: ArrayList<DataMat>? = null
-            val listMat = ArrayList<DataMat>()
-            var lista: RecyclerView? = null
-            var layoutManager: RecyclerView.LayoutManager? = null
+
             val wsURL = URL + "screenotes/getMaterias.php"
             val jsonObjectRequest = JsonObjectRequest(
                 Request.Method.GET, wsURL, null,
                 Response.Listener { response ->
-                    val testJson = response.getJSONArray("tests")
+                    val testJson = response.getJSONArray("materias")
                     listarMaterias = ArrayList()
                     for (i in 0 until testJson.length()) {
                         val id_materia = testJson.getJSONObject(i).getString("id_materia")
@@ -62,6 +64,7 @@ class MainActivity : AppCompatActivity() {
                 }
             )
             VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
+
         } else{
             val actLogin: Intent = Intent(this, MainLogin::class.java)
             startActivity(actLogin)
